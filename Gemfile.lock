@@ -1,0 +1,30 @@
+PATH
+  remote: .
+  specs:
+    osascript (0.1.0)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    ansi (1.5.0)
+    builder (3.2.4)
+    minitest (5.16.3)
+    minitest-reporters (1.5.0)
+      ansi
+      builder
+      minitest (>= 5.0)
+      ruby-progressbar
+    rake (12.3.3)
+    ruby-progressbar (1.11.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  minitest (~> 5.0)
+  minitest-reporters
+  osascript!
+  rake (~> 12.0)
+
+BUNDLED WITH
+   2.1.4
