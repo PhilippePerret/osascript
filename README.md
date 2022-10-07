@@ -22,7 +22,26 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+
+### With Preview
+
+~~~ruby
+
+Osascript::Preview.open_document("/path/to/doc.pdf")
+# => open document in Preview
+
+Osascript::Preview.document_opened?("/path/to/doc.pdf")
+# => return true if document is opened in Preview
+
+Osascript::Preview.documents_paths
+# => return {Array} of path {String} of every document
+#    opened in Preview
+
+Osascript::Preview.documents_names
+# => return {Array} of name {String} of every document
+#    opened in Preview
+~~~
+
 
 ## Development
 
