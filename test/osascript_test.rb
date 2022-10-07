@@ -62,4 +62,21 @@ class OsascriptTest < Minitest::Test
     assert_instance_of Array, res
   end
 
+  def test_predicate_on_method
+    Osascript.__asrun('tell app "Preview" to quit')
+    refute Osascript.on?('Preview'), "La méthode on? devrait retourner false"
+    filepath = File.join(Osascript::TEST_FOLDER,'resources','documents','mon.pdf')
+    Osascript.__asrun("open POSIX file \"#{filepath}\"","Preview")
+    assert Osascript.on?('Preview'), "La méthode on? devrait retourner true"
+  end
+
+  def test_quit_method
+    # skip
+    filepath = File.join(Osascript::TEST_FOLDER,'resources','documents','mon.pdf')
+    Osascript.__asrun("open POSIX file \"#{filepath}\"", 'Preview')
+    assert Osascript.on?('Preview')
+    Osascript.quit('Preview')
+    refute Osascript.on?('Preview')
+  end
+
 end

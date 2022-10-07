@@ -23,9 +23,35 @@ Or install it yourself as:
 ## Usage
 
 
+### With any application
+
+~~~ruby
+require 'osascript'
+
+Osascript.on?("applicationName")
+# => true if application <applicationName> is running
+
+# p.e.
+
+Osascript.on?('Preview')
+
+~~~
+
+~~~ruby
+require 'osascript'
+
+Osascript.quit("applicationName")
+# => quit application applicationName
+
+# p.e.
+Osascript.quit("Final Cut Pro")
+
+~~~
+
 ### With Preview
 
 ~~~ruby
+require 'osascript'
 
 Osascript::Preview.open_document("/path/to/doc.pdf")
 # => open document in Preview
