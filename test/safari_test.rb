@@ -35,11 +35,28 @@ class OsascriptSafariTest < Minitest::Test
 
   def test_run_javascript_in_safari
     Osascript::Safari.open_url('https://www.amazon.com')
-    wait(4)
+    wait(2)
     assert_equal 'https://www.amazon.com/', get_url_of_front_window, "Le site d'Amazon devrait être ouvert dans Safari"
     Osascript::Safari.run_javascript('window.location.href = \\"https://www.atelier-icare.net\\"')
     wait(2)
     assert_equal 'Atelier Icare', get_name_of_front_window, "Javascript code should have been run."
   end
 
+  def test_window_name
+    Osascript::Safari.open_url('https://www.atelier-icare.net')
+    wait(2)
+    assert_equal 'https://www.atelier-icare.net/', get_url_of_front_window, "Le site de l'atelier Icare devrait être ouvert dans Safari"
+    actual_name = Osascript::Safari.window_name
+    expected_name = 'Atelier Icare'
+    assert_equal expected_name, actual_name, "Front window name should be #{expected_name.inspect}. It's #{actual_name.inspect}."
+  end
+
+  def test_document_url
+    Osascript::Safari.open_url('https://www.amazon.com')
+    wait(2)
+    assert_equal 'https://www.amazon.com/', get_url_of_front_window, "Le site d'Amazon devrait être ouvert dans Safari"
+    actual_url    = Osascript::Safari.get_url
+    expected_url  = 'https://www.amazon.com/'
+    assert_equal expected_url, actual_url, "Front document url should be #{expected_url.inspect}. It's #{actual_url.inspect}."
+  end
 end #/class OsascriptSafariTest

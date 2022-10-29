@@ -34,6 +34,35 @@ class << self
     Osascript::__asrun(code, 'Safari')
   end
 
+  # @return the name of the front document
+  def window_name(options = nil)
+    options ||= {}
+    where = options[:where] || 'front window'
+    code = <<~CODE
+    if count of window is 0
+      return null
+    else
+      return name of (#{where})
+    end
+    CODE
+    Osascript::__asrun(code, 'Safari')
+  end
+
+  # @return the URL of front document or of the options[:where]
+  # tab (for instance : options[:where] = 'tab 2 of window 1').
+  def get_url(options = nil)
+    options ||= {}
+    where = options[:where] || 'front document'
+    code = <<~CODE
+    if count of window is 0
+      return null
+    else
+      return URL of (#{where})
+    end
+    CODE
+    Osascript::__asrun(code, 'Safari')
+  end
+
 end #/<< self Safari
 end #/class Safari
 end #/module Osascript

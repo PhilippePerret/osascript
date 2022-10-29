@@ -78,7 +78,19 @@ Osascript::Safari.open_url("https://my.url/to/open.html")
 # => open the ur in the front document
 
 Osascript::Safari.open_url("https://my.url/to/open.html", {new_window: true})
-# => open the ur in a new tab of front window
+# => open the url in a new tab of front window
+
+Osascript::Safari.get_url
+# => return the url of the front document
+
+Osascript::Safari.get_url(where: 'tab 3 of window 2')
+# => return the url of the tab 3 of window 2
+
+Osascript::Safari.window_name
+# => return the displayed name of the front window
+
+Osascript::Safari.window_name(where: 'window 3')
+# => return the displayed name of the window 3
 
 Osascript::Safari.run_javascript("alert('Hello word!')")
 # => run the javascript code in the front document
