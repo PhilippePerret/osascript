@@ -1,8 +1,10 @@
 # Osascript
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/osascript`. To experiment with that code, run `bin/console` for an interactive prompt.
+Welcome to this new *MacOs-Only* gem!
 
-TODO: Delete this and the text above, and describe your gem
+In this directory, you'll find the files you need to be able to 
+package up your Ruby library into a gem. Put your Ruby code in 
+the file `lib/osascript`. To experiment with that code, run `bin/console` for an interactive prompt.
 
 ## Installation
 
@@ -22,6 +24,7 @@ Or install it yourself as:
 
 ## Usage
 
+Only with MacOs.
 
 ### With any application
 
@@ -68,6 +71,23 @@ Osascript::Preview.documents_names
 #    opened in Preview
 ~~~
 
+### With Safari
+
+~~~ruby
+Osascript::Safari.open_url("https://my.url/to/open.html")
+# => open the ur in the front document
+
+Osascript::Safari.open_url("https://my.url/to/open.html", {new_window: true})
+# => open the ur in a new tab of front window
+
+Osascript::Safari.run_javascript("alert('Hello word!')")
+# => run the javascript code in the front document
+
+Osascript::Safari.run_javascript("alert('Hello word!')", {where:'tab 2 of window 1'})
+# => run the javascript code in the tab 2 of window 1
+
+~~~
+
 
 ## Development
 
@@ -77,5 +97,5 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/osascript.
+Bug reports and pull requests are welcome on GitHub at https://github.com/PhilippePerret/osascript.
 
