@@ -59,4 +59,41 @@ class OsascriptSafariTest < Minitest::Test
     expected_url  = 'https://www.amazon.com/'
     assert_equal expected_url, actual_url, "Front document url should be #{expected_url.inspect}. It's #{actual_url.inspect}."
   end
+
+  def test_document_text
+    # theurl = 'https://www.atelier-icare.net' # pour produire une erreur
+    theurl = 'https://www.amazon.com'
+    Osascript::Safari.open_url(theurl)
+    wait(2)
+    assert_equal "#{theurl}/", get_url_of_front_window, "The URL #{theurl.inspect} should be opened in Safari"
+    text = Osascript::Safari.document_text
+    assert_match(/Amazon France/, text)
+
+    theurl = 'https://www.atelier-icare.net'
+    Osascript::Safari.open_url(theurl)
+    wait(2)
+    assert_equal "#{theurl}/", get_url_of_front_window, "The URL #{theurl.inspect} should be opened in Safari"
+    text = Osascript::Safari.document_text
+    refute_match(/Amazon France/, text)
+  end
+
+  def test_document_source
+    # theurl = 'https://www.atelier-icare.net' # pour produire une erreur
+    theurl = 'https://www.amazon.com'
+    Osascript::Safari.open_url(theurl)
+    wait(2)
+    assert_equal "#{theurl}/", get_url_of_front_window, "The URL #{theurl.inspect} should be opened in Safari"
+    text = Osascript::Safari.document_source_code
+    assert_match(/<html/, text)
+    assert_match(/Amazon France/, text)
+
+    theurl = 'https://www.atelier-icare.net'
+    Osascript::Safari.open_url(theurl)
+    wait(2)
+    assert_equal "#{theurl}/", get_url_of_front_window, "The URL #{theurl.inspect} should be opened in Safari"
+    text = Osascript::Safari.document_source_code
+    assert_match(/<html/, text)
+    refute_match(/Amazon France/, text)
+    assert_match(/Icare/, text)
+  end
 end #/class OsascriptSafariTest

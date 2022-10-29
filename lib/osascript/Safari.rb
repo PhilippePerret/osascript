@@ -63,6 +63,38 @@ class << self
     Osascript::__asrun(code, 'Safari')
   end
 
+  # @return the text displayed of front document or of the 
+  # +options[:where] tab (for instance : options[:where] = 'tab 2 of 
+  # window 1').
+  def document_text
+    options ||= {}
+    where = options[:where] || 'front document'
+    code = <<~CODE
+    if count of window is 0
+      return null
+    else
+      return text of (#{where})
+    end
+    CODE
+    Osascript::__asrun(code, 'Safari')
+  end
+
+  # @return the HTML source code of front document or of the 
+  # +options[:where] tab (for instance : options[:where] = 'tab 2 of 
+  # window 1').
+  def document_source_code
+    options ||= {}
+    where = options[:where] || 'front document'
+    code = <<~CODE
+    if count of window is 0
+      return null
+    else
+      return source of (#{where})
+    end
+    CODE
+    Osascript::__asrun(code, 'Safari')
+  end
+
 end #/<< self Safari
 end #/class Safari
 end #/module Osascript
