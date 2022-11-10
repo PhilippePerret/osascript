@@ -108,8 +108,8 @@ class << self
   def key_to_sysevents_code(key)
     if key.is_a?(Hash)
       modifiers = key[:modifiers]
-      key = key[:key]
       delay_sup = key[:delay] # délai ajouté
+      key = key[:key]
     else
       modifiers = nil
       delay_sup = nil
@@ -128,7 +128,7 @@ class << self
       modifiers = modifiers.map {|mod| "#{mod} down" }.join(', ')
       code = "#{code} using {#{modifiers}}"
     end
-    if delay_sup
+    if not(delay_sup.nil?)
       code = "delay #{delay_sup}\n#{code}"
     end
     return code
