@@ -9,7 +9,7 @@
       "Hello", 
       {key:"a", modifiers:[:command]},
       "Bonjour",
-      " tout le monde ",
+      {key:" tout le monde ", delay: 3},
       {key:"a", modifiers:[:command]},
       {key:"c", modifiers:[:command]},
       :RIGHT_ARROW,
@@ -43,6 +43,7 @@
           key: the key (integer, string, symbol),
           modifiers: {Array} with values among :shift, :control,
                       :command, :option
+          delay: {Integer} wait before this seconds time
         }
         For examples: 
           {key:"v", modifiers:[:option]}
@@ -81,7 +82,7 @@ class << self
     activate
     #{code_system_events(keys, options)}
     CODE
-    puts "code :\n#{code}"
+    # puts "code :\n#{code}"
     Osascript::__asrun(code, app)
   end
 
@@ -108,8 +109,10 @@ class << self
     if key.is_a?(Hash)
       modifiers = key[:modifiers]
       key = key[:key]
+      delay_sup = key[:delay] # délai ajouté
     else
       modifiers = nil
+      delay_sup = nil
     end
     code = case key
       when String
@@ -124,6 +127,9 @@ class << self
     if modifiers
       modifiers = modifiers.map {|mod| "#{mod} down" }.join(', ')
       code = "#{code} using {#{modifiers}}"
+    end
+    if delay_sup
+      code = "delay #{delay_sup}\n#{code}"
     end
     return code
   end

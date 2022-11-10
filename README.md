@@ -1,10 +1,6 @@
 # Osascript
 
-Welcome to this new *MacOs-Only* gem!
-
-In this directory, you'll find the files you need to be able to 
-package up your Ruby library into a gem. Put your Ruby code in 
-the file `lib/osascript`. To experiment with that code, run `bin/console` for an interactive prompt.
+Welcome to this *MacOs-Only* new gem!
 
 ## Installation
 
@@ -51,6 +47,156 @@ Osascript.quit("Final Cut Pro")
 
 ~~~
 
+---
+
+<a name="keystroke"></a>
+
+### Keystroke
+
+The `Osascript::Key` class and its `press` method let you simulate key strokes.
+
+**Syntax**
+
+~~~ruby
+require 'osascript'
+
+Osascript::Key.press(
+    <key or array of key>[, <application>|nil][, <options>]
+)
+~~~
+
+
+You can "press" a simple key:
+
+~~~ruby
+require 'osascript'
+
+Osascript::Key.press("a")
+~~~
+
+… in a particular application:
+
+~~~ruby
+require 'osascript'
+
+Osascript::Key.press("a", "TextEdit")
+~~~
+
+… or a word:
+
+~~~ruby
+Osascript::Key.press("Hello world !")
+~~~
+
+… or a list of keys:
+
+~~~ruby
+Osascript::Key.press(["a","b","c"])
+~~~
+
+You can set a delay between each stroke:
+
+~~~ruby
+Osascript::Key.press(["a","b","c"], nil, {delay: 2.5})
+# 2.5 seconds between each stroke
+~~~
+
+… or a list of words:
+
+~~~ruby
+Osascript::Key.press(["Hello", 'world'])
+~~~
+
+You can press a key with a modifier:
+
+~~~ruby
+Osascript::Key.press({"a", modifiers:[:command]})
+# => select all
+Osascript::Key.press({"c", modifiers:[:option]})
+# => stroke a "Ç"
+~~~
+
+… or a list of keys with modifiers:
+
+~~~ruby
+Osascript::Key.press([
+    {key:"z", modifiers:[:command]},
+    {key:"z", modifiers:[:command, :shift]},
+    {key:"z", modifiers:[:command]},
+])
+~~~
+
+… or a key with (supplementary) delay before:
+
+~~~ruby
+Osascript::Key.press([
+    {key:"z", delay: 4}, # wait 4 seconds before press "z"
+])
+~~~
+
+You can press a key as a `Symbol`:
+
+~~~ruby
+Osascript::Key.press(:space)
+~~~
+
+… or a list of keys as `Symbol`:
+
+~~~ruby
+Osascript::Key.press(["a", :space, :enter, :left_arrow])
+~~~
+
+… or any of these above:
+
+~~~ruby
+Osascript::Key.press([
+    "a",
+    "hello",
+    :left_arrow
+    {key: "v", modifiers:[:command]},
+    {key: :BACKSPACE, modifiers:[:command]}
+])
+~~~
+
+#### Available Symbol Keys
+
+~~~ruby
+# min or maj
+
+:down_arrow     # or :DOWN_ARROW
+:up_arrow       # idem
+:left_arrow
+:right_arrow
+:enter
+:return
+:backspace
+:escape
+:space
+:caps_lock
+:tab
+
+~~~
+
+> Tip: to simulate the "Delete" button in a dialog box, use `{key: :backspace, modifiers:[:command]}`
+
+#### Available modifiers
+
+~~~ruby
+# Only min
+
+:command
+:option
+:control
+:shift
+
+~~~
+
+> They are AppleScript modifiers.
+
+---
+
+<a name="preview"></a>
+
 ### With Preview
 
 ~~~ruby
@@ -70,6 +216,8 @@ Osascript::Preview.documents_names
 # => return {Array} of name {String} of every document
 #    opened in Preview
 ~~~
+
+<a name="safari"></a>
 
 ### With Safari
 

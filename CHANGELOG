@@ -1,3 +1,7 @@
+0.3.1
+  * Osascript::Key, ajout du délai supplémentaire pour une touche
+0.3.0
+  * Osascript::Key
 0.2.2
   * New methods: Safari#document_source_code & Safari#document_text
 0.2.1
