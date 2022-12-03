@@ -136,14 +136,14 @@ class << self
 end #/<< self Key
 
 KEY2CODE = {
-  down_arrow: 125, DOWN_ARROW: 125,
-  up_arrow: 126, UP_ARROW: 126,
-  left_arrow: 123, LEFT_ARROW: 123,
-  right_arrow: 124, RIGHT_ARROW: 124,
+  down_arrow: 125, DOWN_ARROW: 125, DOWN: 125,
+  up_arrow: 126, UP_ARROW: 126, UP: 126,
+  left_arrow: 123, LEFT_ARROW: 123, LEFT: 123,
+  right_arrow: 124, RIGHT_ARROW: 124, RIGHT: 124,
   enter: 76, ENTER: 76,
-  return: 36, RETURN: 36,
+  return: 36, RETURN: 36, RET: 36,
   backspace: 51, BACKSPACE: 51,
-  escape: 53, ESCAPE: 53,
+  escape: 53, ESCAPE: 53, ESC: 53,
   space: 49, SPACE: 49,
   caps_lock: 57, CAPS_LOCK: 57,
   tab: 48, TAB: 48
