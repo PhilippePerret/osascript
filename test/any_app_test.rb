@@ -78,7 +78,6 @@ class OsascriptAnyAppTest < Minitest::Test
     assert_respond_to Osascript, :set_window_dimension
     open_test_file
     ini_props = Osascript.get_window_properties('Preview')
-    puts "Bounds initial : #{ini_props[:bounds].inspect}"
     new_dims = {width: 4000, height: 100}
     Osascript.set_window_dimension('Preview', new_dims)
     new_props = Osascript.get_window_properties('Preview')
@@ -88,4 +87,21 @@ class OsascriptAnyAppTest < Minitest::Test
     assert_equal expected, new_props[:bounds], "Window dimensions should have changed (expected: #{expected.inspect}, actual: #{new_props[:bounds].inspect}."
   end
 
+  def test_set_window_position
+    assert_respond_to Osascript, :set_window_position
+    open_test_file
+    ini_props = Osascript.get_window_properties('Preview')
+    ini_bounds = ini_props[:bounds]
+    width   = ini_bounds[2] - ini_bounds[0]
+    height  = ini_bounds[3] - ini_bounds[1]
+    new_pos = {top: 200, left:1000}
+    Osascript.set_window_position('Preview', new_pos)
+    new_props = Osascript.get_window_properties('Preview')
+    new_bounds = new_props[:bounds]
+    assert_equal 1000, new_bounds[0], "New left should be at 1000"
+    assert_equal 200, new_bounds[1], "New top should be at 200"
+    assert_equal 1000 + width, new_bounds[2], "New right should be #{1000 + width}. It is #{new_bounds[2]}"
+    assert_equal 200 + height, new_bounds[3], "New bottom should be #{200 + height}. It is #{new_bounds[3]}"
+
+  end
 end #/ class OsascriptAnyAppTest

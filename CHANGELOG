@@ -1,3 +1,6 @@
+0.4.0
+  * Dimension and position of windows (any application)
+  * Setter/getter window properties of any application
 0.3.1
   * Osascript::Key, ajout du délai supplémentaire pour une touche
 0.3.0
