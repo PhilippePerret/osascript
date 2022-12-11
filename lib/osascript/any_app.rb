@@ -103,11 +103,11 @@ module Osascript
   # @param app_name [String] Name of the application
   # @param bounds [Array] {top-left, bottom-left, top-right, bottom-right}  
   # @param options [Hash] Table with {:window}
-  def self.__set_bounds(app_name, properties, options = nil)
+  def self.set_window_bounds(app_name, bounds, options = nil)
     if on?(app_name)
       window  = (options && options[:window]) || 'front window'
       code = <<~CODE
-      set bounds of #{window} to #{bounds}
+      set bounds of #{window} to {#{bounds.join(', ')}}
       CODE
       __asrun(code, app_name)
     end
@@ -118,13 +118,15 @@ module Osascript
   # @param app_name [String] Name of the application
   # @param dim [Hash] Table with {:width, :height}
   # @param options [Hash] Table with {:window}
-  def self.__set_dimension(app_name, dim, options = nil)
+  def self.set_window_dimension(app_name, dim, options = nil)
     if on?(app_name)
       window  = (options && options[:window]) || 'front window'
       code = <<~CODE
       tell #{window}
-        set item 2 of bounds to (item 2 of bounds of it) + #{dim[:width]}
-        set item 4 of bounds to (item 4 of bounds of it) + #{dim[:height]}
+        set theBounds to bounds of it
+        set topRight to (item 1 of theBounds) + #{dim[:width]}
+        set bottomRight to (item 2 of theBounds) + #{dim[:height]}
+        set bounds of it to {item 1 of theBounds, item 2 of theBounds, topRight, bottomRight}
       end
       CODE
       __asrun(code, app_name)
@@ -136,14 +138,15 @@ module Osascript
   # @param app_name [String] Name of the application
   # @param pos [Hash] Table with {:top, :left}
   # @param options [Hash] Table with {:window}
-  def self.__set_position(app_name, pos, options = nil)
+  def self.set_window_position(app_name, pos, options = nil)
     if on?(app_name)
       window  = (options && options[:window]) || 'front window'
       code = <<~CODE
       tell #{window}
-        set width to (item 3 of bounds) - (item 1 of bounds)
+        set theBounds to bounds of it
+        set width to (item 3 of theBounds) - (item 1 of theBounds)
         set topRight to #{pos[:left]} + width
-        set height to (item 4 of bounds) - (item 2 of bounds)
+        set height to (item 4 of theBounds) - (item 2 of theBounds)
         set bottomRight to #{pos[:top]} + height
         set bounds of it to {#{pos[:left]}, #{pos[:top]}, topRight, bottomRight}
       end

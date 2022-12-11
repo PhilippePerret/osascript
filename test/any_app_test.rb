@@ -56,13 +56,36 @@ class OsascriptAnyAppTest < Minitest::Test
   def test_set_window_method
     assert_respond_to Osascript, :set_window
     open_test_file
+    ini_props = Osascript.get_window_properties('Preview')
     new_name = "Nouveau nom de fichier"
     Osascript.set_window('Preview', {name: new_name})
-    sleep 1
-    exit
     props = Osascript.get_window_properties('Preview')
-    puts "Props: #{props.inspect}"
-    assert_equal(new_name, props[:name], "Window name should have changed")
+    assert_equal(new_name, props[:name], "Window name should have changed to #{new_name.inspect}. It is #{props[:name].inspect} #{" (same as init)" if ini_props[:name] == props[:name]}")
+  end
+
+  def test_set_bounds
+    assert_respond_to Osascript, :set_window_bounds
+    open_test_file
+    ini_props = Osascript.get_window_properties('Preview')
+    new_bounds = [100,100,1000,800]
+    Osascript.set_window_bounds('Preview', new_bounds)
+    fin_props = Osascript.get_window_properties('Preview')
+    refute_equal new_bounds, ini_props[:bounds], "Window bounds should not be the same as init."
+    assert_equal new_bounds, fin_props[:bounds], "Window should have been resized…"
+  end
+
+  def test_set_window_dimension
+    assert_respond_to Osascript, :set_window_dimension
+    open_test_file
+    ini_props = Osascript.get_window_properties('Preview')
+    puts "Bounds initial : #{ini_props[:bounds].inspect}"
+    new_dims = {width: 4000, height: 100}
+    Osascript.set_window_dimension('Preview', new_dims)
+    new_props = Osascript.get_window_properties('Preview')
+    expected = [] + ini_props[:bounds]
+    expected[2] = expected[0] + new_dims[:width]
+    expected[3] = expected[1] + new_dims[:height]
+    assert_equal expected, new_props[:bounds], "Window dimensions should have changed (expected: #{expected.inspect}, actual: #{new_props[:bounds].inspect}."
   end
 
 end #/ class OsascriptAnyAppTest
