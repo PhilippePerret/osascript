@@ -78,7 +78,7 @@ class OsascriptAnyAppTest < Minitest::Test
     assert_respond_to Osascript, :set_window_dimension
     open_test_file
     ini_props = Osascript.get_window_properties('Preview')
-    new_dims = {width: 4000, height: 100}
+    new_dims = {width: 4000, height: 300}
     Osascript.set_window_dimension('Preview', new_dims)
     new_props = Osascript.get_window_properties('Preview')
     expected = [] + ini_props[:bounds]
