@@ -1,3 +1,5 @@
+0.4.2
+  * Possibilité d'envoyer une liste avec des listes de clés
 0.4.1
   * Correction sur le test des dimensions (height too small)
 0.4.0

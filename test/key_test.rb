@@ -45,6 +45,18 @@ class OsascriptKeyTest < Minitest::Test
     assert delay_time > 5, "La procédure aurait du prendre au moins 5 secondes… Le 'delay' ne semble pas être pris en compte."
   end
 
-
+  def test_rationalize_key
+    [
+      [ :RET, :RET ],
+      [ [:RET, :RET], [:RET, :RET]],
+      [ [:RET, [:RET, :RET]], [:RET, :RET, :RET]],
+      [ [:RET, [:RET, [:RET, :RET]]], [:RET, :RET, :RET, :RET]],
+      [ {key:'c', modifiers:[:control]}, {key:'c', modifiers:[:control]} ],
+      [ [{key:'c', modifiers:[:control]}, [:UP, :DOWN]], [{key:'c', modifiers:[:control]}, :UP, :DOWN] ],
+    ].each do |keys, expected|
+      actual = Osascript::Key.rationalize_keys(keys)
+      assert_equal(expected, actual)
+    end
+  end
 
 end 

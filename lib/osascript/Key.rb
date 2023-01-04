@@ -70,11 +70,26 @@ class << self
   def press(keys, app = nil, options = nil)
     options ||= {}
     options.key?(:delay) || options.merge!(delay: 0.5)
+    # Rationalize keys to not contain Array
+    keys = rationalize_keys(keys)
     if app.nil?
       press_without_app(keys, options)
     else
       press_with_app(keys, app, options)
     end
+  end
+  ##
+  # +key+ must contain only Integer, Float, String or Hash
+  def rationalize_keys(keys)
+    return keys unless keys.is_a?(Array)
+    only_keys = []
+    keys.each do |ii|
+      case ii
+      when Array then only_keys += rationalize_keys(ii)
+      else only_keys << ii
+      end
+    end
+    return only_keys
   end
   def press_with_app(keys, app, options)
     code = <<~CODE
