@@ -132,6 +132,7 @@ class << self
     code = case key
       when String
         key = key.gsub(/"/, '\\\"') unless key.match?(/\\"/)
+        key = key.gsub(/~/, '\\~')
         "keystroke \"#{key}\""
       when Integer
         "key code #{key}"
