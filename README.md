@@ -195,6 +195,30 @@ Osascript::Key.press([
 
 ---
 
+<a name="terminal"></a>
+
+### With Terminal
+
+~~~ruby
+require 'osascript'
+
+def run_in_terminal(keys, **options)
+  Osascript::Key.press(keys, 'Terminal', **options)
+end
+
+#
+# Open a new window in Terminal console
+# 
+run_in_terminal({key: "n", modifiers:[:command]})
+# 
+# Run a script (to see all files in current folder, even hidden ones)
+# 
+run_in_terminal("ls -la")
+
+~~~
+
+---
+
 <a name="preview"></a>
 
 ### With Preview

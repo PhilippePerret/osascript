@@ -101,7 +101,7 @@ module Osascript
   # Set bounds of front window of +app_name+ app (or other
   # window defined in options) to +bounds+
   # @param app_name [String] Name of the application
-  # @param bounds [Array] {top-left, bottom-left, top-right, bottom-right}  
+  # @param bounds [Array] [top-left, bottom-left, top-right, bottom-right]
   # @param options [Hash] Table with {:window}
   def self.set_window_bounds(app_name, bounds, options = nil)
     if on?(app_name)
