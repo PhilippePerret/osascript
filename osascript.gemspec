@@ -12,6 +12,7 @@ Gem::Specification.new do |s|
   s.required_ruby_version = Gem::Requirement.new(">= 2.3.0")
 
   s.metadata["allowed_push_host"] = "https://github.com/PhilippePerret/osascript"
+  # s.metadata["allowed_push_host"] = "https://rubygems.org"
 
   s.add_development_dependency 'minitest'
   s.add_development_dependency 'minitest-reporters'

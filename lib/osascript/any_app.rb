@@ -34,12 +34,12 @@ module Osascript
       # 
       ret = ret.split(/(?:, )?([a-z]+)\:/)
       ret.shift if ret[0].empty? || ret[0].nil?
-      puts "ret = #{ret.inspect}"
+      # puts "ret = #{ret.inspect}"
       table = {}
       while ret.count > 0
         prop  = ret.shift.to_sym
         value = ret.shift
-        puts "prop = #{prop.inspect} / value: #{value}::#{value.class}"
+        # puts "prop = #{prop.inspect} / value: #{value}::#{value.class}"
         value = case prop
         when :bounds, :position
           eval("[#{value}]")
