@@ -33,19 +33,27 @@ module Osascript
       # "document:Mon doc, floating:false, bounds:4, 12, 23, 45 etc."
       # 
       ret = ret.split(/(?:, )?([a-z]+)\:/)
-      ret.shift # vide
+      ret.shift if ret[0].empty? || ret[0].nil?
+      puts "ret = #{ret.inspect}"
       table = {}
       while ret.count > 0
         prop  = ret.shift.to_sym
         value = ret.shift
+        puts "prop = #{prop.inspect} / value: #{value}::#{value.class}"
         value = case prop
-        when :bounds
+        when :bounds, :position
           eval("[#{value}]")
         else
           begin
             eval(value)
           rescue NameError
             value
+          rescue Exception => e
+            if value.match?(',')
+              value.split(',').map {|n|n.strip}
+            else
+              raise e
+            end
           end
         end
         table.merge!(prop => value)

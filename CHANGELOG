@@ -1,3 +1,6 @@
+0.4.3
+  * Correction bugs sur get_window_properties
+  * Renseignement (aide) dans read me file.
 0.4.2
   * Possibilité d'envoyer une liste avec des listes de clés
 0.4.1

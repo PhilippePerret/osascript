@@ -39,6 +39,15 @@ Osascript.on?('Preview')
 ~~~ruby
 require 'osascript'
 
+Osascript.get_window_properties("Finder", {window: "front window"})
+# => return window’s properties of front window of Finder app
+#      {:bounds, :name, :index, :id, :zoomable, :zoomed, :visible, :miniaturizable
+#       :miniaturized, :closeable, :closed, :titled, :floating, :modal}
+~~~
+
+~~~ruby
+require 'osascript'
+
 Osascript.quit("applicationName")
 # => quit application applicationName
 
