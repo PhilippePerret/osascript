@@ -1,3 +1,7 @@
+0.4.5
+  * Essai de gem-push (workflow github).
+0.4.4
+  * Minor change (retrait des messages degub)
 0.4.3
   * Correction bugs sur get_window_properties
   * Renseignement (aide) dans read me file.

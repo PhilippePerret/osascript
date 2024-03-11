@@ -18,6 +18,8 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'minitest-reporters'
 
   s.metadata["homepage_uri"] = s.homepage
+  # J’ai essayé d’ajouter ça pour pouvoir déposer le gem
+  s.metadata["github_repo"] = 'git@github.com:PhilippePerret/osascript.git'
   s.metadata["source_code_uri"] = "https://github.com/PhilippePerret/osascript"
   s.metadata["changelog_uri"] = "https://github.com/PhilippePerret/osascript/CHANGE.log"
 

@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    osascript (0.4.3)
+    osascript (0.4.4)
 
 GEM
   remote: https://rubygems.org/
